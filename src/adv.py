@@ -51,25 +51,43 @@ room['treasure'].s_to = room['narrow']
 #
 # If the user enters "q", quit the game.
 
-current_room = Player()     #current room = outside
-print(room[str(current_room)].n_to)     #prints foyer object
+player = Player(room['outside'])
+
+current_room = player.room     #current room = outside
+
+def wrong_way():
+    print('movement is not allowed')
 
 while True:
-    print(room[str(current_room)])
+    print(str(current_room))
 
     move = input('Where would you like to go? (North, South, East, or West) : ')
 
     if move == 'North':
-        current_room = Player(room[str(current_room)].n_to)  #giving Player() room value need to give it key
+        if current_room.n_to is None:
+            wrong_way()
+        else:
+            current_room = current_room.n_to
 
     elif move == 'South':
-        current_room = Player(room[str(current_room)].s_to)
+        if current_room.s_to is None:
+            wrong_way()
+        else:
+            current_room = current_room.s_to
 
     elif move == 'East':
-        current_room = Player(room[str(current_room)].e_to)
+        if current_room.e_to is None:
+            wrong_way()
+        else:
+            current_room = current_room.e_to
+
 
     elif move == 'West':
-        current_room = Player(room[str(current_room)].w_to)
+        if current_room.w_to is None:
+            wrong_way()
+        else:
+            current_room = current_room.w_to
+
 
     else:
         print(f'{move} is not an option')
