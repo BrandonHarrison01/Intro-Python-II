@@ -6,5 +6,10 @@ class Room:
         self.name = name
         self.desc = desc
 
+        self.n_to = None
+        self.s_to = None
+        self.e_to = None
+        self.w_to = None
+
     def __str__(self):
-        return f'You are {self.name}, {self.desc}'
+        return f'{self.name}, {self.desc}'
