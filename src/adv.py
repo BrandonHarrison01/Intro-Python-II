@@ -52,13 +52,14 @@ room['treasure'].s_to = room['narrow']
 # If the user enters "q", quit the game.
 
 player = Player(room['outside'])
-
 current_room = player.room     #current room = outside
 
 def wrong_way():
     print('movement is not allowed')
 
-while True:
+in_game = True
+
+while in_game == True:
     print(str(current_room))
 
     move = input('Where would you like to go? (North, South, East, or West) : ')
@@ -81,13 +82,14 @@ while True:
         else:
             current_room = current_room.e_to
 
-
     elif move == 'West':
         if current_room.w_to is None:
             wrong_way()
         else:
             current_room = current_room.w_to
 
+    elif move == 'q':
+        in_game = False
 
     else:
         print(f'{move} is not an option')
