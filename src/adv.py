@@ -1,5 +1,6 @@
 from room import Room
 from player import Player
+from item import Item
 
 # Declare all the rooms
 
@@ -53,6 +54,11 @@ room['treasure'].s_to = room['narrow']
 
 player = Player(room['outside'])
 current_room = player.room     #current room = outside
+
+room['foyer'].add_item(Item('Sword'))
+room['overlook'].add_item(Item('Golf Tee'))
+room['narrow'].add_item(Item('Garbage Can'))
+room['treasure'].add_item(Item('The Crystal Skull'))
 
 def wrong_way():
     print('movement is not allowed')

@@ -8,3 +8,9 @@ class Player:
 
     def __str__(self):
         return f"{self.room}"
+
+    def add_item(self, item):
+        self.bag.append(item)
+
+    def drop_item(self, item):
+        self.bag.append(item)
