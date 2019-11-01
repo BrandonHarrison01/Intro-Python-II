@@ -68,35 +68,72 @@ in_game = True
 while in_game == True:
     print(str(current_room))
 
+    loot = ''
+    for i in current_room.loot:
+        loot += f'{i.name}'
+    print('Loot: ' + loot)
+
+    bag = ''
+    for i in player.bag:
+        bag += f'{i.name}'
+    print('Bag: ' + bag)
+
     move = input('Where would you like to go? (North, South, East, or West) : ')
+    split_move = move.split()
 
-    if move == 'North':
-        if current_room.n_to is None:
-            wrong_way()
+    if len(split_move) == 1:
+ 
+        if move == 'North':
+            if current_room.n_to is None:
+                wrong_way()
+            else:
+                current_room = current_room.n_to
+
+        elif move == 'South':
+            if current_room.s_to is None:
+                wrong_way()
+            else:
+                current_room = current_room.s_to
+
+        elif move == 'East':
+            if current_room.e_to is None:
+                wrong_way()
+            else:
+                current_room = current_room.e_to
+
+        elif move == 'West':
+            if current_room.w_to is None:
+                wrong_way()
+            else:
+                current_room = current_room.w_to
+
+        elif move == 'q':
+            in_game = False
+
         else:
-            current_room = current_room.n_to
+            print(f'{move} is not an option')
 
-    elif move == 'South':
-        if current_room.s_to is None:
-            wrong_way()
+    elif len(split_move) == 2:
+
+        print(loot, split_move[1], 'what will it return')
+
+        # will only work with one item in loot, use index() and find away to get loot in a list of names
+        if loot == split_move[1]:
+            print('item found')
+
+            if split_move[0] == 'get':
+                player.add_item(Item(split_move[1]))
+
+            elif split_move[0] == 'drop':
+                print('drop')
+
         else:
-            current_room = current_room.s_to
+            print('not found')
 
-    elif move == 'East':
-        if current_room.e_to is None:
-            wrong_way()
-        else:
-            current_room = current_room.e_to
 
-    elif move == 'West':
-        if current_room.w_to is None:
-            wrong_way()
-        else:
-            current_room = current_room.w_to
 
-    elif move == 'q':
-        in_game = False
+        # else:
+        #     print('not an option')
 
-    else:
-        print(f'{move} is not an option')
+
 

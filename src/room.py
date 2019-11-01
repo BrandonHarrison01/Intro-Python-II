@@ -13,14 +13,7 @@ class Room:
         self.w_to = None
 
     def __str__(self):
-        room = f'{self.name}, {self.desc}.'
-
-        l = ''
-
-        for i in self.loot:
-            l += f'{i.name} '
-
-        return room + '\n' + 'Loot: ' + l
+        return f'{self.name}, {self.desc}.'
 
     def add_item(self, item):
         self.loot.append(item)
