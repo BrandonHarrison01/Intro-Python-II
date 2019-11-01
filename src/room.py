@@ -5,6 +5,7 @@ class Room:
     def __init__(self, name, desc):
         self.name = name
         self.desc = desc
+        self.item = []
 
         self.n_to = None
         self.s_to = None
@@ -12,4 +13,6 @@ class Room:
         self.w_to = None
 
     def __str__(self):
-        return f'{self.name}, {self.desc}'
+
+        #will probably need a for loop to print out each item ↓
+        return f'{self.name}, {self.desc}. this room has {self.item}'  
