@@ -19,4 +19,4 @@ class Room:
         self.loot.append(item)
 
     def drop_item(self, item):
-        self.loot.append(item)
+        self.loot.remove(item)

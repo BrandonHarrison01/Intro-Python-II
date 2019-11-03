@@ -56,27 +56,33 @@ player = Player(room['outside'])
 current_room = player.room     #current room = outside
 
 room['foyer'].add_item(Item('Sword'))
-room['overlook'].add_item(Item('Golf Tee'))
-room['narrow'].add_item(Item('Garbage Can'))
-room['treasure'].add_item(Item('The Crystal Skull'))
+room['foyer'].add_item(Item('Item'))
+room['foyer'].add_item(Item('Python'))
+room['overlook'].add_item(Item('Ball'))
+room['narrow'].add_item(Item('Garbage'))
+room['treasure'].add_item(Item('Skull'))
+
+player.add_item(Item('test'))
 
 def wrong_way():
     print('movement is not allowed')
 
 in_game = True
+loot = []
+bag = []
 
 while in_game == True:
     print(str(current_room))
 
-    loot = ''
-    for i in current_room.loot:
-        loot += f'{i.name}'
-    print('Loot: ' + loot)
+    if loot == []:
+        for i in current_room.loot:
+            loot.append(i.name)   
+    print('Loot: ', loot)
 
-    bag = ''
-    for i in player.bag:
-        bag += f'{i.name}'
-    print('Bag: ' + bag)
+    if bag == []:
+        for i in player.bag:
+            bag.append(i.name)
+    print('Bag: ' + str(bag))
 
     move = input('Where would you like to go? (North, South, East, or West) : ')
     split_move = move.split()
@@ -115,25 +121,33 @@ while in_game == True:
 
     elif len(split_move) == 2:
 
-        print(loot, split_move[1], 'what will it return')
+
+        if split_move[0] == 'get':
 
         # will only work with one item in loot, use index() and find away to get loot in a list of names
-        if loot == split_move[1]:
-            print('item found')
-
-            if split_move[0] == 'get':
+            if split_move[1] in loot:
                 player.add_item(Item(split_move[1]))
+                loot.remove(split_move[1])
+                Item(split_move[1]).on_take()
 
-            elif split_move[0] == 'drop':
-                print('drop')
+            else:
+                print(f'{split_move[1]} not found in loot')
+
+        elif split_move[0] == 'drop':
+
+            if split_move[1] in bag:
+                loot.add_item(split_move[1])
+                bag.remove(split_move[1])
+                Item(split_move[1]).on_drop()
+
+            else:
+                print(f'{split_move[1]}, not found in bag')
 
         else:
-            print('not found')
+            print(f'{split_move[0]} is not an option')
 
-
-
-        # else:
-        #     print('not an option')
-
-
-
+# todo:
+#     get bag and loot to print in a comma seperated list
+#     find split move 1 in the list in bag or loot
+#     add ability to drop items from bag and add to current room loot
+#     make bag only print when i is entered
